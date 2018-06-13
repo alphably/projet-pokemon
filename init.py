@@ -47,12 +47,26 @@ scriptSQL()
 with open("pokemon.html") as fp:
     soup = BeautifulSoup(fp)
 
+# recuperation du fichier pokemon
+with open("pokemon.html") as fp:
+    soup = BeautifulSoup(fp)
+
 tab = soup.find(id="pokedex")
 
 for link in tab.find_all("tr"):
-    print(len(tab.find_all("td")))
+    tt = []
+    for l in link.find_all("td"):
+        tt.append(l.text)
 
-    for l in tab.find_all("td"):
-        print(l.text, end=" ")
+    #
 
-    print("\n")
+    print(type(tt))
+    cursor.execute("INSERT INTO pokemon (pki, name, type_pok, total, hp, attack, defense, sp_atk, sp_def, speed) "
+                   "VALUES (%(pki)s, %(name)s, %(type_pok)s, %(total)s, %(hp)s, %(attack)s, %(defense)s, %(sp_atk)s, %(sp_def)s, %(speed)s)", tt)
+
+
+#     data = []
+    #
+
+    #print("\n Message de fin")
+    #print("\n")
