@@ -1,12 +1,14 @@
 #!/usr/bin/python3
 
-import requests
 from bs4 import BeautifulSoup
+import mysql.connector, random, requests
 
-
-import mysql.connector, random
-
-conn = mysql.connector.connect(host="localhost",user="root", password="", database="base_pokemon")
+conn = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="",
+    database="base_pokemon"
+ )
 cursor = conn.cursor()
 
 
@@ -15,12 +17,10 @@ def scriptSQL():
 
     cursor.execute("""
       CREATE TABLE IF NOT EXISTS pokemon
-          (
+      (
              id INT PRIMARY KEY AUTO_INCREMENT,
              pki VARCHAR(10),
              name VARCHAR(100),
-             type ENUM('Normal', 'Fire', 'Water', 'Electric', 'Grass', 'Ice', 'Fighting', 'Poison', 'Ground', 'Flying',
-          'Psychic', 'Bug', 'Rock','Ghost', 'Dragon', 'Dark', 'Steel', 'Fairy'),
              total INT(5),
              hp INT(5),
              attack INT(5),
@@ -28,14 +28,14 @@ def scriptSQL():
              sp_atk INT(5),
              sp_def INT(5),
              speed INT(5)
-          );
-      """)
+      );
+  """)
 
     cursor.execute("""
       CREATE TABLE IF NOT EXISTS type
      (
-            id INT PRIMARY KEY AUTO_INCREMENT,
-            nom VARCHAR(100)
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        name VARCHAR(100)
      );
      """)
 
@@ -77,21 +77,38 @@ soup = BeautifulSoup(html_doc, "html.parser")
 
 #print(soup)
 #soup = BeautifulSoup("<html>data</html>")
-
+type = soup.find(id="filter-pkmn-type")
 tab = soup.find(id="pokedex")
-#print(dir(tab))
+#print(dir(type.find-all("option")))
+dataTypeTemp = []
+for o in type.find_all("option"):
+    #print(o.text)
+    dataTypeTemp.append(o.text)
+
+
+dataType = dataTypeTemp[1:]
+print(dataType)
+
+for x in range(0, len(dataType)):
+    cursor.execute("INSERT INTO type (name) VALUES (%s)", [dataType[x]])
+
+conn.commit()
+conn.close()
+exit()
 
 for link in tab.find_all("tr"):
     tt = []
     for l in link.find_all("td"):
         tt.append(l.text)
 
-    print(tt)
-    if len(tt) > 0:
-        #print(tt)
-        #exit()
-        cursor.execute("INSERT INTO pokemon (pki, name, type, total, hp, attack, defense, sp_atk, sp_def, speed) "
-                   "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", tt)
+    nn = tt[:2] + tt[3:]
 
-conn.commit()
-conn.close()
+    if len(tt) > 0:
+        print(tt[2])
+        #exit()
+        cursor.execute("INSERT INTO pokemon (pki, name, total, hp, attack, defense, sp_atk, sp_def, speed) "
+                       "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", nn)
+
+
+
+

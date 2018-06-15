@@ -1,57 +1,55 @@
-"""A basic (single function) API written using hug"""
-import hug, mysql.connector, json, collections
-conn = mysql.connector.connect(host="localhost",user="root", password="", database="base_pokemon")
+
+import hug, mysql.connector, json, collections, requests
+
+conn = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="",
+    database="base_pokemon"
+)
+
 cursor = conn.cursor()
 
-@hug.get('/')
+@hug.get('/pokemon/all')
 @hug.format.content_type('sorted_json')
-def pokemon_list():
-    """Says happy birthday to a user"""
+def list():
+    """Affichage de tous les pokemon de la base de donnees"""
     cursor.execute("SELECT * FROM pokemon")
     rows = cursor.fetchall()
-    
-    # champ = ['id','pki', 'name', 'type', 'total', 'hp', 'attack', 'defense', 'sp_atk', 'sp_def', 'speed']
-    # objects_list = []
-    # for row in rows:
-    #     #print(row)
-    #     i = 0
-    #     for r in row:
-    #
-    #         print(r)
-    #         d = collections.OrderedDict()
-    #         d[champ[i]] = row
-    #
-    # # SQL SELECT
-    # # retourner
-    #
-    # exit()
-    return json.dumps(rows)
+    conn.commit()
+    conn.close()
 
-def groupe_list():
-    """Says happy birthday to a user"""
+    return rows
 
-    # SQL SELECT
-    # retourner
-    return "Bienvenue sur la page d'accuiel"
+@hug.post('/pokemon/add')
+def ajouter(body, request, response):
 
-# ajout des information
-@hug.post('/')
-def home():
-    """Says happy birthday to a user"""
+    """ Cette fonction permet d'ajouter un pokemon dans la base de donnees """
 
-    return "Bienvenue sur la page d'accuiel"
+    cursor.execute("INSERT INTO pokemon (pki, name, type, total, hp, attack, defense, sp_atk, sp_def, speed) "
+                   "VALUES (%(pki)s, %(name)s, %(type)s, %(total)s, %(hp)s, %(attack)s, %(defense)s, %(sp_atk)s, %(sp_def)s, %(speed)s)", body)
+    conn.commit()
+    conn.close()
+
+    return json.dumps("L'enregistrement a bien été effectué")
 
 
-# modifier un exitant
-@hug.put('/')
-def home():
-    """Says happy birthday to a user"""
+@hug.put('/pokemon/update/{id}')
+def modifier(id: hug.types.number, body):
+    """Cette fonction permet la modification d'un pokemon"""
+    cursor.execute("""UPDATE pokemon SET (pki = %(pki)s, name = %(name)s, type = %(type)s, total = %(total)s, hp = %(hp)s, attack = %(attack)s, 
+                      defense = %(defense)s, sp_atk = %(sp_atk)s, sp_def = %s, speed = %(sp_def)s WHERE id= {id}""", body)
+    conn.commit()
+    conn.close()
 
-    return "Bienvenue sur la page d'accuiel"
+    return json.dumps("Modification réussie")
 
+@hug.delete('/pokemon/delete/{id}')
+def supprimer(id: hug.types.number):
+    """Fonction permettant de supprimer un pokemon à partir de son ID"""
+    cursor.execute("""DELETE FROM pokemon WHERE id = %s""", [id])
 
-@hug.delete('/')
-def home():
-    """Says happy birthday to a user"""
+    conn.commit()
+    conn.close()
 
-    return "Bienvenue sur la page d'accuiel"
+    return json.dumps("Vous venez de Supprimer le pokemon {id} de la base de données")
