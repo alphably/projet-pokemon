@@ -92,9 +92,6 @@ print(dataType)
 for x in range(0, len(dataType)):
     cursor.execute("INSERT INTO type (name) VALUES (%s)", [dataType[x]])
 
-conn.commit()
-conn.close()
-exit()
 
 for link in tab.find_all("tr"):
     tt = []
@@ -110,5 +107,6 @@ for link in tab.find_all("tr"):
                        "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", nn)
 
 
-
-
+conn.commit()
+conn.close()
+#exit()
