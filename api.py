@@ -11,15 +11,28 @@ conn = mysql.connector.connect(
 cursor = conn.cursor()
 
 @hug.get('/pokemon/all')
-@hug.format.content_type('sorted_json')
 def list():
     """Affichage de tous les pokemon de la base de donnees"""
     cursor.execute("SELECT * FROM pokemon")
     rows = cursor.fetchall()
+
     conn.commit()
     conn.close()
 
     return rows
+
+
+@hug.get('/pokemon/{id}')
+def get_one_pokemon():
+    """Affichage d'un pokemon de la base de donnees"""
+    cursor.execute("""SELECT * FROM pokemon WHERE id=%s """, [id])
+    row = cursor.fetchone()
+
+    conn.commit()
+    conn.close()
+
+    return row
+
 
 @hug.post('/pokemon/add')
 def ajouter(body, request, response):

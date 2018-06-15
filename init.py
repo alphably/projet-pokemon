@@ -9,6 +9,7 @@ conn = mysql.connector.connect(
     password="",
     database="base_pokemon"
  )
+
 cursor = conn.cursor()
 
 
@@ -85,7 +86,6 @@ for o in type.find_all("option"):
     #print(o.text)
     dataTypeTemp.append(o.text)
 
-
 dataType = dataTypeTemp[1:]
 print(dataType)
 
@@ -104,7 +104,7 @@ for link in tab.find_all("tr"):
     nn = tt[:2] + tt[3:]
 
     if len(tt) > 0:
-        print(tt[2])
+        #print(tt[2])
         #exit()
         cursor.execute("INSERT INTO pokemon (pki, name, total, hp, attack, defense, sp_atk, sp_def, speed) "
                        "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", nn)
