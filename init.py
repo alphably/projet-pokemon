@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 from bs4 import BeautifulSoup
-import mysql.connector, random, requests
+import mysql.connector, random, requests, re
 
 conn = mysql.connector.connect(
     host="localhost",
@@ -87,7 +87,15 @@ for o in type.find_all("option"):
     dataTypeTemp.append(o.text)
 
 dataType = dataTypeTemp[1:]
-print(dataType)
+#print(dataType)
+
+# algo insertion dans la table pokemon_type
+for i in range(0,len(dataType)):
+  #print(dataType[i])
+  print(re.findall(dataType[i], "GrassPoison"))
+
+exit()
+
 
 for x in range(0, len(dataType)):
     cursor.execute("INSERT INTO type (name) VALUES (%s)", [dataType[x]])
@@ -107,6 +115,10 @@ for link in tab.find_all("tr"):
                        "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", nn)
 
 
-conn.commit()
+
+
+
+
+#conn.commit()
 conn.close()
 #exit()

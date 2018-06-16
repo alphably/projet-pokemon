@@ -1,5 +1,5 @@
 
-import hug, mysql.connector, json, collections, requests
+import hug, mysql.connector, json, requests
 
 conn = mysql.connector.connect(
     host="localhost",
