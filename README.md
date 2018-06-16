@@ -1,82 +1,47 @@
 # Projet pokemon
-cette application 
- here
-
-## Table of Contents
-
-- [Install](#install)
-- [Introduction](#introduction)
-- [Contributors](#contributors)
+cette application est à API qui permet de recolter des pokemon sur le site  
 
 
-## Pour commencer
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Prérequis 
-
-What things you need to install the software and how to install them
-Vous devez dispo
-
-```
-Give examples
-```
-
-### Installation
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
+# Prérequis 
 
 
-## Diagramme de classe
+Vous devez avoir des connaissance de Git
 
-[![Modèle UML]https://row.github.com/alphably/projet-pokemon/blob/master/img/modele.JPG]
+
+
+# Installation
+1. Installer Python
+2. choisir votre editeur (de préference PyCharm)
+3. Ajouter les paramètres si necessaire
+4. cliquer sur Send pour envoyer la requête
+
+
+# Diagramme de classe
+
+[![Modèle UML]https://github.com/alphably/projet-pokemon/blob/master/img/modele.JPG]
 
 
 
 
-## Running the tests
+## Running
 
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
+Pour lancer un test il faut, utiliser Postmon ensuite
+1. saisir l'url ()
+2. choisir la méthode
+3. Ajouter les paramètres si necessaire
+4. cliquer sur Send pour envoyer la requête
 
 
-## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Authors
+## Auteur
 
 * **Alpha B** 
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## License
 
 Ce projet est sous la licence MIT License
 
-## Acknowledgments
+## Remerciements
 
-* Tonton Medhi
+* Medhi A

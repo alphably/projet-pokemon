@@ -1,0 +1,44 @@
+{
+	"variables": [],
+	"info": {
+		"name": "swagger",
+		"_postman_id": "c5ec6187-09de-e982-2b8a-2ad76c00e4ca",
+		"description": "Collection destinée à la génération du Swagger",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET all pokemon",
+			"request": {
+				"url": "localhost:8000/pokemon/all",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get One pokemon",
+			"request": {
+				"url": "localhost:8000/pokemon/1",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Cette requête recupère un seul pokemon"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete one pokemon",
+			"request": {
+				"url": "localhost:8000/pokemon/delete/12",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": "Supprime un pokemon"
+			},
+			"response": []
+		}
+	]
+}

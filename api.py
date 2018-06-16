@@ -23,7 +23,7 @@ def list():
 
 
 @hug.get('/pokemon/{id}')
-def get_one_pokemon():
+def get_one_pokemon(id: hug.types.number):
     """Affichage d'un pokemon de la base de donnees"""
     cursor.execute("""SELECT * FROM pokemon WHERE id=%s """, [id])
     row = cursor.fetchone()
@@ -38,7 +38,7 @@ def get_one_pokemon():
 def ajouter(body, request, response):
 
     """ Cette fonction permet d'ajouter un pokemon dans la base de donnees """
-
+    
     cursor.execute("INSERT INTO pokemon (pki, name, type, total, hp, attack, defense, sp_atk, sp_def, speed) "
                    "VALUES (%(pki)s, %(name)s, %(type)s, %(total)s, %(hp)s, %(attack)s, %(defense)s, %(sp_atk)s, %(sp_def)s, %(speed)s)", body)
     conn.commit()
